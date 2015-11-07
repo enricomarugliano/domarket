@@ -48,27 +48,7 @@
 
     </android.support.design.widget.TextInputLayout>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
 
-        <SeekBar
-            android:id="@+id/timeout_slider"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            />
-        <TextView
-            android:id="@+id/timeout_text"
-            android:text= "discrete value"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"/>
-
-    </LinearLayout>
 
 
 </LinearLayout>
