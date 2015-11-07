@@ -32,10 +32,8 @@ import cz.msebera.android.httpclient.Header;
  */
 public class JobsListFragment extends Fragment {
 
-    private List<Job> jobs;
+    public static List<Job> jobs;
     private SwipeRefreshLayout swipeContainer;
-    private FloatingActionButton fab;
-
 
     public static JobsListFragment newInstance() {
         return new JobsListFragment();
@@ -65,7 +63,7 @@ public class JobsListFragment extends Fragment {
         recList.setItemAnimator(new DefaultItemAnimator());
 
         // Create and attach adapter
-        adapter = new JobListAdapter(jobs);
+        adapter = new JobListAdapter(getContext());
         recList.setAdapter(adapter);
 
         // Create and configure refresh listener
@@ -77,7 +75,7 @@ public class JobsListFragment extends Fragment {
                 // Update list
                 swipeContainer.setRefreshing(false);
                 initializeJobs();
-                JobListAdapter adapter = new JobListAdapter(jobs);
+                JobListAdapter adapter = new JobListAdapter(getContext());
                 recList.setAdapter(adapter);
             }
         });
@@ -127,7 +125,7 @@ public class JobsListFragment extends Fragment {
                     for(int j = 0; j < resultsLength; j++) {
                         jobs.add(new Job(results[j].getString("title"), results[j].getString("description"), results[j].getDouble("budget")));
                     }
-                    adapter = new JobListAdapter(jobs);
+                    adapter = new JobListAdapter(getContext());
                     recList.setAdapter(adapter);
                 } catch (JSONException e) {
                     e.printStackTrace();

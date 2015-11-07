@@ -14,7 +14,8 @@
             android:layout_height="250px"
             android:id="@+id/imageView"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/profile" />
+
+        />
 
         <TextView
             android:layout_width="wrap_content"
