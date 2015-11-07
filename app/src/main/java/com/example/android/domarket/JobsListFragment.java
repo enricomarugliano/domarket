@@ -76,7 +76,7 @@ public class JobsListFragment extends Fragment {
             public void onRefresh() {
                 // Update list
                 swipeContainer.setRefreshing(false);
-                //initializeJobs();
+                initializeJobs();
                 JobListAdapter adapter = new JobListAdapter(jobs);
                 recList.setAdapter(adapter);
             }

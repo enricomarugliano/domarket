@@ -37,7 +37,7 @@
         app:counterMaxLength="250">
 
         <EditText
-            android:id="@+id/job_description"
+            android:id="@+id/job_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textAutoCorrect|textCapSentences|textMultiLine"
