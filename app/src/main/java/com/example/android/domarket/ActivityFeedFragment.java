@@ -16,8 +16,8 @@ import java.util.List;
 /**
  * Created by Enrico on 03/11/2015.
  *
- * This fragment contains the main jobs list.
- * It is a recycler view that displays new jobs and their information
+ * This fragment contains a logged in user's activity feed.
+ * It is a recycler view that displays new messages and notifications
  * on cards.
  *
  */
@@ -63,17 +63,14 @@ public class ActivityFeedFragment extends Fragment {
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // Update list
-                swipeContainer.setRefreshing(false);
+                // TODO react to refresh
+                swipeContainer.setRefreshing(false); // Refresh done
             }
         });
 
         return rootView;
     }
 
-    // This method creates an ArrayList that has three jobs
-    // Checkout the project associated with this tutorial on Github if
-    // you want to use the same images.
     private void initializeData(){
         jobs = new ArrayList<>();
         jobs.add(new Job("Buy me beer", "Get me beer ASAP!"));
