@@ -125,7 +125,6 @@ public class JobsListFragment extends Fragment {
                 String tweetText = null;
                 try {
                     for(int j = 0; j < resultsLength; j++) {
-                        System.out.println("added job");
                         jobs.add(new Job(results[j].getString("title"), results[j].getString("description")));
                     }
                     adapter = new JobListAdapter(jobs);
@@ -142,20 +141,3 @@ public class JobsListFragment extends Fragment {
 
 }
 
-class APIClient {
-    private static final String BASE_URL = "http://domarket.divvyapp.co/";
-
-    private static AsyncHttpClient client = new AsyncHttpClient();
-
-    public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
-        client.get(getAbsoluteUrl(url), params, responseHandler);
-    }
-
-    public static void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
-        client.post(getAbsoluteUrl(url), params, responseHandler);
-    }
-
-    private static String getAbsoluteUrl(String relativeUrl) {
-        return BASE_URL + relativeUrl;
-    }
-}
