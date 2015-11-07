@@ -1,6 +1,5 @@
 package com.example.android.domarket;
 
-import android.app.DownloadManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,24 +12,13 @@ import android.view.ViewGroup;
 import android.view.LayoutInflater;
 import android.os.Bundle;
 import com.loopj.android.http.*;
-import org.json.*;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -61,14 +49,14 @@ public class JobsListFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-
+    RecyclerView recList;
+    JobListAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        initializeData();
+        initializeJobs();
 
         View rootView = inflater.inflate(R.layout.fragment_jobs_list, container, false);
-
-        RecyclerView recList = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+        recList = (RecyclerView) rootView.findViewById(R.id.recycler_view);
 
         // Create, configure and set layout manager
         LinearLayoutManager llm = new LinearLayoutManager(this.getContext());
@@ -77,7 +65,7 @@ public class JobsListFragment extends Fragment {
         recList.setItemAnimator(new DefaultItemAnimator());
 
         // Create and attach adapter
-        JobListAdapter adapter = new JobListAdapter(jobs);
+        adapter = new JobListAdapter(jobs);
         recList.setAdapter(adapter);
 
         // Create and configure refresh listener
@@ -88,7 +76,9 @@ public class JobsListFragment extends Fragment {
             public void onRefresh() {
                 // Update list
                 swipeContainer.setRefreshing(false);
-                initializeData();
+                //initializeJobs();
+                JobListAdapter adapter = new JobListAdapter(jobs);
+                recList.setAdapter(adapter);
             }
         });
 
@@ -98,19 +88,9 @@ public class JobsListFragment extends Fragment {
     // This method creates an ArrayList that has three jobs
     // Checkout the project associated with this tutorial on Github if
     // you want to use the same images.
-    private void initializeData() {
+    private void initializeJobs() {
 
         jobs = new ArrayList<>();
-        /*jobs.add(new Job("Buy me beer", "Get me beer ASAP!"));
-        jobs.add(new Job("Buy me beer", "Get me beer ASAP!"));
-        jobs.add(new Job("Buy me beer", "Get me beer ASAP!"));
-        jobs.add(new Job("Buy me beer", "Get me beer ASAP!"));
-        jobs.add(new Job("Buy me beer", "Get me beer ASAP!"));
-        jobs.add(new Job("Buy me beer", "Fuck me in the bum"));
-        jobs.add(new Job("Buy me beer", "Get me beer ASAP!"));
-        jobs.add(new Job("Buy me beer", "Get me beer ASAP!"));
-        jobs.add(new Job("Buy me beer", "Get me beer ASAP!"));*/
-
 
         try {
             getData();
@@ -119,8 +99,6 @@ public class JobsListFragment extends Fragment {
         }
 
     }
-
-
 
     private void getData() throws JSONException {
         APIClient.get("/jobs", null, new JsonHttpResponseHandler() {
@@ -150,6 +128,8 @@ public class JobsListFragment extends Fragment {
                         System.out.println("added job");
                         jobs.add(new Job(results[j].getString("title"), results[j].getString("description")));
                     }
+                    adapter = new JobListAdapter(jobs);
+                    recList.setAdapter(adapter);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
