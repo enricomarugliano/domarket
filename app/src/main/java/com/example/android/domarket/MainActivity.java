@@ -2,6 +2,8 @@ package com.example.android.domarket;
 
 import java.util.Locale;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.Fragment;
@@ -54,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(MainActivity.this, NewJobActivity.class);
+                startActivity(intent);
             }
         });
 

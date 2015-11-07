@@ -9,24 +9,23 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class ActivityFeedAdapter extends RecyclerView.Adapter<ActivityFeedAdapter.JobViewHolder>{
+public class ActivityFeedAdapter extends RecyclerView.Adapter<ActivityFeedAdapter.NotificationViewHolder>{
 
-    List<Job> jobs;
+    List<Job> jobs; //TODO change this to messages
+    // TODO Import notification list List<> notifications;
 
     ActivityFeedAdapter(List<Job> jobs){
         this.jobs = jobs;
     }
 
-    public static class JobViewHolder extends RecyclerView.ViewHolder {
+    public static class NotificationViewHolder extends RecyclerView.ViewHolder {
         CardView cv;
-        TextView jobName;
-        TextView jobDes;
+        TextView message;
 
-        JobViewHolder(View itemView) {
+        NotificationViewHolder(View itemView) {
             super(itemView);
-            cv = (CardView)itemView.findViewById(R.id.job_card);
-            jobName = (TextView)itemView.findViewById(R.id.job_name);
-            jobDes = (TextView)itemView.findViewById(R.id.job_description);
+            cv = (CardView)itemView.findViewById(R.id.notification_card);
+            message = (TextView)itemView.findViewById(R.id.message);
         }
     }
 
@@ -37,15 +36,14 @@ public class ActivityFeedAdapter extends RecyclerView.Adapter<ActivityFeedAdapte
 
 
     @Override
-    public JobViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.job_card, viewGroup, false);
-        return new JobViewHolder(v);
+    public NotificationViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.notification_card, viewGroup, false);
+        return new NotificationViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(JobViewHolder jobViewHolder, int i) {
-        jobViewHolder.jobName.setText(jobs.get(i).title);
-        jobViewHolder.jobDes.setText(jobs.get(i).description);
+    public void onBindViewHolder(NotificationViewHolder notificationViewHolder, int i) {
+        notificationViewHolder.message.setText(jobs.get(i).title);
     }
 
     @Override
