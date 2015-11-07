@@ -2,20 +2,18 @@ package com.example.android.domarket;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
-public class RVAdapter extends RecyclerView.Adapter<RVAdapter.JobViewHolder>{
+public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewHolder>{
 
     List<Job> jobs;
 
-    RVAdapter(List<Job> jobs){
+    JobListAdapter(List<Job> jobs){
         this.jobs = jobs;
     }
 
@@ -26,7 +24,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.JobViewHolder>{
 
         JobViewHolder(View itemView) {
             super(itemView);
-            cv = (CardView)itemView.findViewById(R.id.card_view);
+            cv = (CardView)itemView.findViewById(R.id.job_card);
             jobName = (TextView)itemView.findViewById(R.id.job_name);
             jobDes = (TextView)itemView.findViewById(R.id.job_description);
         }
@@ -40,7 +38,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.JobViewHolder>{
 
     @Override
     public JobViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.jobs_list_card_view, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.job_card, viewGroup, false);
         return new JobViewHolder(v);
     }
 

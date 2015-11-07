@@ -2,23 +2,20 @@ package com.example.android.domarket;
 
 import java.util.Locale;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-public class Home extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -34,11 +31,12 @@ public class Home extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_view_pager);
 
 
         // Create the adapter that will return a fragment for each of the three
@@ -50,6 +48,33 @@ public class Home extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         mViewPager.setCurrentItem(1, false); // Set default tab to the second tab
+
+        // Create and configure add new job button listener
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        // Listen for changes in view pager scrolling
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+            @Override
+            public void onPageSelected(int position) {}
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                if (state == 0 && mViewPager.getCurrentItem() == 1) {
+                    fab.show(); // show floating action button on jobs list screen
+                } else {
+                    fab.hide(); // hide floating action button
+                }
+            }
+        });
 
     }
 
@@ -64,7 +89,7 @@ public class Home extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
+        // automatically handle clicks on the MainActivity/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
@@ -94,7 +119,7 @@ public class Home extends AppCompatActivity {
             switch(position){
                 case 0: return PlaceholderFragment.newInstance(position + 1);
                 case 1: return JobsListFragment.newInstance();
-                case 2: return PlaceholderFragment.newInstance(position + 1);
+                case 2: return ActivityFeedFragment.newInstance();
                 default: return  JobsListFragment.newInstance();
             }
         }
