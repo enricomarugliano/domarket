@@ -42,6 +42,7 @@ public class NewJobActivity extends AppCompatActivity {
 
                 try {
                     postData();
+                    System.out.println("Attempting to post Job...");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
