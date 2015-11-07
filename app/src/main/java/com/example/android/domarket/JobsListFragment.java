@@ -1,18 +1,38 @@
 package com.example.android.domarket;
 
+import android.app.DownloadManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.LayoutInflater;
 import android.os.Bundle;
+import com.loopj.android.http.*;
+import org.json.*;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by Enrico on 03/11/2015.
@@ -68,6 +88,7 @@ public class JobsListFragment extends Fragment {
             public void onRefresh() {
                 // Update list
                 swipeContainer.setRefreshing(false);
+                initializeData();
             }
         });
 
@@ -77,9 +98,10 @@ public class JobsListFragment extends Fragment {
     // This method creates an ArrayList that has three jobs
     // Checkout the project associated with this tutorial on Github if
     // you want to use the same images.
-    private void initializeData(){
+    private void initializeData() {
+
         jobs = new ArrayList<>();
-        jobs.add(new Job("Buy me beer", "Get me beer ASAP!"));
+        /*jobs.add(new Job("Buy me beer", "Get me beer ASAP!"));
         jobs.add(new Job("Buy me beer", "Get me beer ASAP!"));
         jobs.add(new Job("Buy me beer", "Get me beer ASAP!"));
         jobs.add(new Job("Buy me beer", "Get me beer ASAP!"));
@@ -87,7 +109,73 @@ public class JobsListFragment extends Fragment {
         jobs.add(new Job("Buy me beer", "Fuck me in the bum"));
         jobs.add(new Job("Buy me beer", "Get me beer ASAP!"));
         jobs.add(new Job("Buy me beer", "Get me beer ASAP!"));
-        jobs.add(new Job("Buy me beer", "Get me beer ASAP!"));
-        jobs.add(new Job("Buy me beer", "Get me beer ASAP!"));
+        jobs.add(new Job("Buy me beer", "Get me beer ASAP!"));*/
+
+
+        try {
+            getData();
+        }catch(Exception e){
+
+        }
+
+    }
+
+
+
+    private void getData() throws JSONException {
+        APIClient.get("/jobs", null, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                // If the response is JSONObject instead of expected JSONArray
+                Log.d("Response", response.toString());
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray result) {
+                // Pull out the jobs from the results
+                JSONObject[] results = null;
+                int resultsLength = 0;
+                try {
+                    resultsLength = result.length();
+                    results = new JSONObject[resultsLength];
+                    for(int i = 0; i < resultsLength; i++) {
+                        results[i] = (JSONObject) result.get(i);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                String tweetText = null;
+                try {
+                    for(int j = 0; j < resultsLength; j++) {
+                        System.out.println("added job");
+                        jobs.add(new Job(results[j].getString("title"), results[j].getString("description")));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                // Do something with the response
+                //System.out.println(tweetText);
+            }
+        });
+    }
+
+}
+
+class APIClient {
+    private static final String BASE_URL = "http://domarket.divvyapp.co/";
+
+    private static AsyncHttpClient client = new AsyncHttpClient();
+
+    public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+        client.get(getAbsoluteUrl(url), params, responseHandler);
+    }
+
+    public static void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+        client.post(getAbsoluteUrl(url), params, responseHandler);
+    }
+
+    private static String getAbsoluteUrl(String relativeUrl) {
+        return BASE_URL + relativeUrl;
     }
 }
