@@ -26,12 +26,39 @@
             android:layout_gravity="center_horizontal" />
 
         <RatingBar
+            android:paddingTop="10pt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/ratingBar"
             android:numStars="5"
             android:layout_gravity="center_horizontal"
             android:rating="4" />
+
+        <TextView
+            android:paddingTop="10pt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Email: dyln.strt@gmail.com"
+            android:id="@+id/textView"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:paddingTop="10pt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Phone: 087 618 3432"
+            android:id="@+id/textView"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Profile"
+            android:id="@+id/button"
+            android:layout_gravity="center_horizontal"
+            style="@style/AlertDialog.AppCompat.Light" />
 
 
     </LinearLayout>
