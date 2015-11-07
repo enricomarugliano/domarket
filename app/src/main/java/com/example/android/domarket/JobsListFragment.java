@@ -125,7 +125,7 @@ public class JobsListFragment extends Fragment {
                 String tweetText = null;
                 try {
                     for(int j = 0; j < resultsLength; j++) {
-                        jobs.add(new Job(results[j].getString("title"), results[j].getString("description")));
+                        jobs.add(new Job(results[j].getString("title"), results[j].getString("description"), results[j].getDouble("budget")));
                     }
                     adapter = new JobListAdapter(jobs);
                     recList.setAdapter(adapter);

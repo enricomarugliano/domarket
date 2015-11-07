@@ -22,9 +22,10 @@ public class Job
     int winningBidder;
     boolean isCompleted;
 
-    public Job(String title, String description){
+    public Job(String title, String description, double budget){
         this.title = title;
         this.description = description;
+        this.budget = budget;
     }
 
     public Date timeToDeadline()

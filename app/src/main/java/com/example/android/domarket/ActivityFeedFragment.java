@@ -78,6 +78,7 @@ public class ActivityFeedFragment extends Fragment {
             public void onRefresh() {
                 // TODO react to refresh
                 swipeContainer.setRefreshing(false); // Refresh done
+                initializeData();
                 ActivityFeedAdapter adapter = new ActivityFeedAdapter(jobs);
                 recList.setAdapter(adapter);
             }
@@ -117,11 +118,11 @@ public class ActivityFeedFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                String tweetText = null;
+
                 try {
                     for (int j = 0; j < resultsLength; j++) {
-                        System.out.println("added job in Activity Feed");
-                        jobs.add(new Job(results[j].getString("content"), results[j].getString("sender_id")));
+                        System.out.println("added item in Activity Feed");
+                        jobs.add(new Job(results[j].getString("content"), results[j].getString("sender_id"), 1.0));
                     }
                     adapter = new ActivityFeedAdapter(jobs);
                     recList.setAdapter(adapter);

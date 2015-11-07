@@ -21,12 +21,14 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewH
         CardView cv;
         TextView jobName;
         TextView jobDes;
+        TextView jobBudget;
 
         JobViewHolder(View itemView) {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.job_card);
             jobName = (TextView)itemView.findViewById(R.id.job_name);
             jobDes = (TextView)itemView.findViewById(R.id.job_description);
+            jobBudget = (TextView)itemView.findViewById(R.id.budget);
         }
     }
 
@@ -46,6 +48,7 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewH
     public void onBindViewHolder(JobViewHolder jobViewHolder, int i) {
         jobViewHolder.jobName.setText(jobs.get(i).title);
         jobViewHolder.jobDes.setText(jobs.get(i).description);
+        jobViewHolder.jobBudget.setText("Budget: " + jobs.get(i).budget);
     }
 
     @Override

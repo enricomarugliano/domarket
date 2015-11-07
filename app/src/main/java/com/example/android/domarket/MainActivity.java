@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch(position){
-                case 0: return PlaceholderFragment.newInstance(position + 1);
+                case 0: return ProfileFragment.newInstance();
                 case 1: return JobsListFragment.newInstance();
                 case 2: return ActivityFeedFragment.newInstance();
                 default: return  JobsListFragment.newInstance();
