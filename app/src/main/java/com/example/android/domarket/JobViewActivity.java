@@ -21,12 +21,14 @@ public class JobViewActivity extends AppCompatActivity {
     TextView jobTitle, jobDescription, suggestedBid, bid1, bid2, bid3;
     Button placeBid;
 
+    int pos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job_view);
         Intent intent = getIntent();
         int positionInList = intent.getIntExtra("item_position", -1);
+        pos = positionInList;
         currentJob = JobsListFragment.jobs.get(positionInList);
         jobTitle = (TextView) findViewById(R.id.job_view_title);
         jobDescription = (TextView) findViewById(R.id.job_view_description);
@@ -70,9 +72,17 @@ public class JobViewActivity extends AppCompatActivity {
                     //for(int j = 0; j < resultsLength; j++) {
                     //    jobs.add(new Job(results[j].getString("title"), results[j].getString("description"), results[j].getDouble("budget")));
                     //}
-                    String title = results[0].getString("title");
-                    String description = results[0].getString("description");
-                    String budget = "Budget: " + results[0].getString("budget");
+                    String title = results[pos].getString("title");
+                    String description = results[pos].getString("description");
+                    String budget = "Budget: " + results[pos].getString("budget");
+
+                    jobTitle.setText(title);
+                    jobDescription.setText(description);
+                    suggestedBid.setText(budget);
+
+                    bid1.setText("4.50");
+                    bid2.setText("8.00");
+                    bid3.setText("10.90");
 
                 } catch (JSONException e) {
                     e.printStackTrace();
