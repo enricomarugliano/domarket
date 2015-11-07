@@ -1,9 +1,11 @@
 package com.example.android.domarket;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -21,6 +23,8 @@ public class JobViewActivity extends AppCompatActivity {
     TextView jobTitle, jobDescription, suggestedBid, bid1, bid2, bid3;
     Button placeBid;
 
+    Context con = this.getBaseContext();
+
     int pos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,15 @@ public class JobViewActivity extends AppCompatActivity {
         bid2 = (TextView) findViewById(R.id.bid_2);
         bid3 = (TextView) findViewById(R.id.bid_3);
         placeBid = (Button) findViewById(R.id.place_bid_button);
+
+        placeBid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(con, NewBidActivity.class);
+                startActivity(i);
+            }
+        });
 
         try {
             getJob();
@@ -74,7 +87,7 @@ public class JobViewActivity extends AppCompatActivity {
                     //}
                     String title = results[pos].getString("title");
                     String description = results[pos].getString("description");
-                    String budget = "Budget: " + results[pos].getString("budget");
+                    String budget = "Budget: €" + results[pos].getString("budget");
 
                     jobTitle.setText(title);
                     jobDescription.setText(description);

@@ -20,6 +20,8 @@
         </activity>
         <activity android:name=".NewJobActivity" >
         </activity>
+        <activity android:name=".NewBidActivity" >
+        </activity>
         <activity android:name=".JobViewActivity" >
         </activity>
     </application>

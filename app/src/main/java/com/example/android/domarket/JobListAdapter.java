@@ -60,7 +60,7 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewH
     public void onBindViewHolder(JobViewHolder jobViewHolder, int i) {
         jobViewHolder.jobName.setText(JobsListFragment.jobs.get(i).title);
         jobViewHolder.jobDes.setText(JobsListFragment.jobs.get(i).description);
-        jobViewHolder.jobBudget.setText("Budget: " + JobsListFragment.jobs.get(i).budget);
+        jobViewHolder.jobBudget.setText("Budget: €" + JobsListFragment.jobs.get(i).budget);
     }
 
     @Override
